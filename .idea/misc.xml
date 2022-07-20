@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23" />
+        <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/drawable/ic_baseline_article_24.xml" value="0.13" />
+        <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/drawable/ic_baseline_bookmarks_24.xml" value="0.13" />
         <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/layout/activity_main.xml" value="0.1671875" />
+        <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/layout/fragment_bookmarks.xml" value="0.10866261398176291" />
         <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/layout/fragment_main_screen.xml" value="0.21195652173913043" />
         <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/layout/fragment_man_screen.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/layout/item_article.xml" value="0.10866261398176291" />
         <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/layout/item_articles.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/201/AndroidStudioProjects/Newsfetcher/app/src/main/res/menu/menu.xml" value="0.22239583333333332" />
       </map>
     </option>
   </component>
