@@ -6,13 +6,12 @@ import com.example.newsfetcher.feature.domain.ArticleModel
 data class ViewState (
     val bookmarksArticles : List <ArticleModel>
 )
-
+sealed class UiEvent ()
 sealed class DataEvent : Event {
 
-    object loadArticles :DataEvent()
-    data class onLoadArticlesSoursed ( val articles: List<ArticleModel>) : DataEvent()
-
+    object LoadBookmarks :DataEvent()
+    data class OnSuccessBookmarksLoaded ( val bookmarksArticle: List<ArticleModel>) : DataEvent()
+    data class OnFailedBookmarksLoaded ( val throwable: Throwable) : DataEvent()
 
 }
 
-sealed class UiEvent ()

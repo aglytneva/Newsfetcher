@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
 import com.example.newsfetcher.feature.domain.ArticleModel
-
-class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+//( val onItemClick:() ->Int ) передаем функцию высшего порядка
+class ArticleAdapter ( val onItemClicked:(Int) ->Unit ): RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
         // передаем в эту переменную список статей
         private var articlesData:List <ArticleModel> = emptyList ()
@@ -19,12 +19,9 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
          * (custom ViewHolder).
          */
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val textView: TextView
+            val tvTittle: TextView=view.findViewById(R.id.tvTittle)
+            val tvDate: TextView=view.findViewById(R.id.tvDate)
 
-            init {
-                // Define click listener for the ViewHolder's View.
-                textView = view.findViewById(R.id.tvTittle)
-            }
         }
 
         // Create new views (invoked by the layout manager)
@@ -37,11 +34,18 @@ class ArticleAdapter : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
         }
 
         // Replace the contents of a view (invoked by the layout manager)
+        //здесь формируется вид карточки
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+
+            //нажатие на item вызывает номер
+            viewHolder.itemView.setOnClickListener {
+                onItemClicked(position)
+            }
 
             // Get element from your dataset at this position and replace the
             // contents of the view with that element
-            viewHolder.textView.text = articlesData[position].title
+            viewHolder.tvTittle.text = articlesData[position].title
+            viewHolder.tvDate.text = articlesData[position].publishedAt
         }
 
         // Return the size of your dataset (invoked by the layout manager)

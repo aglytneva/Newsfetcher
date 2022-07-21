@@ -4,10 +4,13 @@ import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.newsfatcher.base.BaseViewModel
 import com.example.newsfatcher.base.Event
+import com.example.newsfetcher.feature.bookmarks.domain.BookmarksInteractor
 import com.example.newsfetcher.feature.domain.ArticlesInteractor
 import kotlinx.coroutines.launch
 
-class MainScreenViewModel (private val interactor : ArticlesInteractor): BaseViewModel <ViewState> () {
+class MainScreenViewModel (private val interactor : ArticlesInteractor,
+                           private val bookmarksInteractor: BookmarksInteractor)
+    : BaseViewModel <ViewState> () {
 
     init {
         processDataEvent(DataEvent.loadArticles)
@@ -33,6 +36,13 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor): BaseVie
         }
         is DataEvent.onLoadArticlesSoursed -> {
             return previousState.copy(articles = event.articles)
+        }
+        //при нажатии на кнопку создается ...
+        is UiEvent.onArticleClicked -> {
+            viewModelScope.launch {
+                bookmarksInteractor.create(previousState.articles[event.index])
+            }
+            return null
         }
         else -> return null
        }

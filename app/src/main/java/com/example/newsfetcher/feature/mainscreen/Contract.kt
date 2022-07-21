@@ -8,6 +8,14 @@ import com.example.newsfetcher.feature.domain.ArticleModel
 data class ViewState (
     val articles : List <ArticleModel>
 )
+//называем события как будто ползователь нажал на кнопку, показывает не то,
+// что хотел пользователь, а именно что сделал
+//Это событие
+
+sealed class UiEvent : Event {
+    data class onArticleClicked ( val index: Int ) : UiEvent()
+
+}
 
 sealed class DataEvent : Event {
 

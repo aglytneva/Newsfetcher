@@ -1,5 +1,6 @@
 package com.example.newsfetcher.feature.bookmarks.data.local.model
 
+import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,24 +10,25 @@ import com.example.newsfetcher.feature.bookmarks.di.BOOKMARKS_TABLE
 data class BookmarksEntity (
 
     @PrimaryKey
+
     @ColumnInfo(name= "author")
-    val author :String?,
+    val author :String,
 
     @ColumnInfo(name= "title")
-    val title :String?,
+    val title :String,
 
     @ColumnInfo(name= "description")
-    val description :String?,
+    val description :String,
 
     @ColumnInfo(name= "url")
-    val url :String?,
+    val url :String,
 
     @ColumnInfo(name= "urlToImage")
-    val urlToImage :String?,
+    val urlToImage :String,
 
     @ColumnInfo(name= "publishedAt")
-    val publishedAt :String?,
+    val publishedAt :String,
 
     @ColumnInfo(name= "content")
-    val content :String?,
+    val content :String,
 )
