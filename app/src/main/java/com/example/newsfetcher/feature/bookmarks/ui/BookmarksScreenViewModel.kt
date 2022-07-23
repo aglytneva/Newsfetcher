@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsfatcher.base.BaseViewModel
 import com.example.newsfatcher.base.Event
 import com.example.newsfetcher.feature.bookmarks.domain.BookmarksInteractor
-import com.example.newsfetcher.feature.bookmarks.ui.DataEvent
+import com.example.newsfetcher.feature.bookmarks.ui.UiEvent
 import kotlinx.coroutines.launch
 
 class BookmarksScreenViewModel (private val interactor:BookmarksInteractor) : BaseViewModel <ViewState>(){
@@ -14,7 +14,7 @@ class BookmarksScreenViewModel (private val interactor:BookmarksInteractor) : Ba
         processDataEvent(com.example.newsfetcher.feature.bookmarks.ui.DataEvent.LoadBookmarks)
     }
     override fun initialViewState(): ViewState = ViewState(bookmarksArticles = emptyList())
-    override fun reduce(event: Event, previousSTATE: ViewState): ViewState? {
+    override fun reduce(event: Event, previousState: ViewState): ViewState? {
         when(event) {
             is DataEvent.LoadBookmarks -> {
                 viewModelScope.launch {
@@ -30,8 +30,17 @@ class BookmarksScreenViewModel (private val interactor:BookmarksInteractor) : Ba
             }
            is DataEvent.OnSuccessBookmarksLoaded -> {
                Log.d("Room", "articleBookmark = ${event.bookmarksArticle}")
-               return previousSTATE.copy(bookmarksArticles = event.bookmarksArticle)
+               return previousState.copy(bookmarksArticles = event.bookmarksArticle)
            }
+
+            //при нажатии на кнопку удаляется статья в базе данных
+            is UiEvent.OnArticleClicked -> {
+                viewModelScope.launch {
+                    interactor.delete(previousState.bookmarksArticles[event.index])
+
+                }
+                return null
+            }
             else ->return null
         }
 

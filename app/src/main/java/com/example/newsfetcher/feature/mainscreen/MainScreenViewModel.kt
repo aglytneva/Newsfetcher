@@ -23,6 +23,7 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
     override fun initialViewState()= ViewState (
         articleList = emptyList(),
         articlesShown = emptyList(),
+        editText = "",
         isSearchEnabled =false )
 
     override fun reduce(event: Event, previousState: ViewState): ViewState? {
@@ -42,8 +43,11 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
             return null
         }
         is DataEvent.onLoadArticlesSoursed -> {
-            return previousState.copy(articleList = event.articles,articlesShown = event.articles)
+            return previousState.copy(articleList = event.articles,articlesShown = event.articles,
+                )
         }
+
+
         //при нажатии на кнопку создается новая статья в базе данных
         is UiEvent.OnArticleClicked -> {
             viewModelScope.launch {
@@ -55,17 +59,20 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
         //при нажатии на кнопку создается новая статья в базе данных
         is UiEvent.OnSearchButtonClicked -> {
             return previousState.copy(
-                articlesShown = if(!previousState.isSearchEnabled) previousState.articleList
+                articlesShown = if(
+                    previousState.isSearchEnabled
+                   && previousState.editText==""
+                ) previousState.articleList
                 else previousState.articlesShown,
-                isSearchEnabled = !previousState.isSearchEnabled)
+                  isSearchEnabled = !previousState.isSearchEnabled)
         }
 
-            //uiсобытие набора текста, получает текст, копирует новое состояние
+            //ui событие набора текста, получает текст, копирует новое состояние
             // экрана предварительно отфильтровав список статей, полученных из сети
         is UiEvent.OnSearchEdit -> {
+            previousState.editText=event.text
             return previousState.copy( articlesShown = previousState.articleList.filter {
-                it.title.contains(event.text)
-            })
+                it.title.contains(event.text)})
         }
         else -> return null
        }
