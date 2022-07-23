@@ -17,6 +17,9 @@ data class ViewState (
 sealed class UiEvent : Event {
     data class OnArticleClicked (val index: Int ) : UiEvent()
     object OnSearchButtonClicked  : UiEvent()
+
+    // описываем event когда вводится текст
+    data class OnSearchEdit (val text :String) :UiEvent()
 }
 
 sealed class DataEvent : Event {

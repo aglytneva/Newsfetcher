@@ -54,7 +54,18 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
 
         //при нажатии на кнопку создается новая статья в базе данных
         is UiEvent.OnSearchButtonClicked -> {
-            return previousState.copy(isSearchEnabled = !previousState.isSearchEnabled)
+            return previousState.copy(
+                articlesShown = if(!previousState.isSearchEnabled) previousState.articleList
+                else previousState.articlesShown,
+                isSearchEnabled = !previousState.isSearchEnabled)
+        }
+
+            //uiсобытие набора текста, получает текст, копирует новое состояние
+            // экрана предварительно отфильтровав список статей, полученных из сети
+        is UiEvent.OnSearchEdit -> {
+            return previousState.copy( articlesShown = previousState.articleList.filter {
+                it.title.contains(event.text)
+            })
         }
         else -> return null
        }

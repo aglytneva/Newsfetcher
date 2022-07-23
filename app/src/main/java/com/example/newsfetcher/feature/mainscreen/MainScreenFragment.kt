@@ -1,6 +1,8 @@
 package com.example.newsfetcher.feature.mainscreen
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -34,6 +36,28 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
         ivSearch.setOnClickListener {
             viewModel.processUiEvent(UiEvent.OnSearchButtonClicked)
         }
+
+        //хотим, чтобы при каждом вводе символа пользователем у нас создавался новый event и
+        // он отправлялся во viewModel и относительно этого event у нас происходила фильтрация списка
+        // для этого у нас есть у editText метод addTextChangedListener и  есть некaя сущность,
+        // которая называется TextWatcher.
+        // TextWatcher - это интерфейс, поэтому мы не создаем отдельный класс, мы реализуем его анонимно
+        //класс, у которого нет имени, но он автоматически имплементирует
+        //va
+        etSearch.addTextChangedListener(object : TextWatcher {
+            // до того как текст именился
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                }
+            // в тот момент как текст именился
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                }
+            // после того как текст именилсяю Нам он нужен
+            override fun afterTextChanged(text: Editable?) {
+                viewModel.processUiEvent(UiEvent.OnSearchEdit(text.toString()))
+            }
+
+        })
+
     }
     private fun render (viewState: ViewState) {
         tvTittle.isVisible =!viewState.isSearchEnabled
