@@ -15,8 +15,15 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
     init {
         processDataEvent(DataEvent.loadArticles)
     }
-
-    override fun initialViewState()= ViewState (articles = emptyList())
+//    val isSearchEnabled:Boolean,
+//    val articlesShown:List<ArticleModel>,
+//
+//
+//    val articles : List <ArticleModel>
+    override fun initialViewState()= ViewState (
+        articleList = emptyList(),
+        articlesShown = emptyList(),
+        isSearchEnabled =false )
 
     override fun reduce(event: Event, previousState: ViewState): ViewState? {
         when (event) {
@@ -35,14 +42,19 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
             return null
         }
         is DataEvent.onLoadArticlesSoursed -> {
-            return previousState.copy(articles = event.articles)
+            return previousState.copy(articleList = event.articles,articlesShown = event.articles)
         }
-        //при нажатии на кнопку создается ...
-        is UiEvent.onArticleClicked -> {
+        //при нажатии на кнопку создается новая статья в базе данных
+        is UiEvent.OnArticleClicked -> {
             viewModelScope.launch {
-                bookmarksInteractor.create(previousState.articles[event.index])
+                bookmarksInteractor.create(previousState.articlesShown[event.index])
             }
             return null
+        }
+
+        //при нажатии на кнопку создается новая статья в базе данных
+        is UiEvent.OnSearchButtonClicked -> {
+            return previousState.copy(isSearchEnabled = !previousState.isSearchEnabled)
         }
         else -> return null
        }
