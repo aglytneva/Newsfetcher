@@ -25,8 +25,7 @@
         android:layout_gravity="bottom|right"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
-        android:outlineSpotShadowColor="#DA2C4C"
-        tools:src="@drawable/ic_baseline_favorite_24"
+        android:src="@drawable/ic_baseline_favorite_24"
 
         />
 

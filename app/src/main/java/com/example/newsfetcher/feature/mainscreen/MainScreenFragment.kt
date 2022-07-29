@@ -33,6 +33,9 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
         viewModel.viewState.observe (viewLifecycleOwner, :: render)
         recyclerView.adapter=adapter
 
+        val search = etSearch.getText().toString()
+
+
         ivSearch.setOnClickListener {
             viewModel.processUiEvent(UiEvent.OnSearchButtonClicked)
         }
