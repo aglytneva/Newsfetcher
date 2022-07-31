@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
 import com.example.newsfetcher.feature.domain.ArticleModel
 //( val onItemClick:() ->Int ) передаем функцию высшего порядка
-class ArticleAdapter ( val onItemClicked:(Int) ->Unit ): RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+class ArticleAdapter ( private val onAddToBookmarksClicked: (Int) -> Unit, private val onArticleClicked: (ArticleModel) -> Unit) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
         // передаем в эту переменную список статей, создаем самостоятельно
         private var articlesData:List <ArticleModel> = emptyList ()
@@ -41,8 +41,18 @@ class ArticleAdapter ( val onItemClicked:(Int) ->Unit ): RecyclerView.Adapter<Ar
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
             //нажатие на item вызывает номер
-            viewHolder.itemView.setOnClickListener {
-                onItemClicked(position)
+//            viewHolder.itemView.setOnClickListener {
+////                viewHolder.ivFavorite.setOnClickListener {
+//                onItemClicked(position)
+//
+//            }
+            viewHolder.ivFavorite.setOnClickListener {
+                onAddToBookmarksClicked.invoke(position)
+                notifyDataSetChanged()
+            }
+
+            viewHolder.tvTittle.setOnClickListener{
+                onArticleClicked.invoke(articlesData[position])
             }
 
             // Get element from your dataset at this position and replace the
@@ -50,15 +60,19 @@ class ArticleAdapter ( val onItemClicked:(Int) ->Unit ): RecyclerView.Adapter<Ar
             viewHolder.tvTittle.text = articlesData[position].title
             viewHolder.tvDate.text = articlesData[position].publishedAt
 
+
+
+
         }
+
 
         // Return the size of your dataset (invoked by the layout manager)
         override fun getItemCount() = articlesData.size
 
             //создаем метод, который самостоятельно дергает дату
-//            fun setData (articles :List <ArticleModel>) {
-//                articlesData = articles
-//                notifyDataSetChanged()
+//           fun setData (articles :List <ArticleModel>) {
+//               articlesData = articles
+//               notifyDataSetChanged()
 //
 //            }
 

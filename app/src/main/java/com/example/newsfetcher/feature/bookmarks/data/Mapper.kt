@@ -15,11 +15,11 @@ fun BookmarksEntity.toDomain ()= ArticleModel (
 
 fun ArticleModel.toEntity ()= BookmarksEntity (
 
-    author = author,
-    title = title,
-    description = description ,
-    url = url,
-    urlToImage = urlToImage,
-    publishedAt = publishedAt,
-    content = content
+    title = title ,
+    author = author?: "",
+    description = description?: "",
+    url = url ?: "",
+    urlToImage = urlToImage?: "",
+    publishedAt = publishedAt ?: "",
+    content = content ?: ""
 )
