@@ -38,7 +38,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        viewModel.viewState.observe(viewLifecycleOwner, ::render)
+
 
         val title = arguments?.get("title").toString()
         val author = arguments?.get("author").toString()
@@ -59,10 +59,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
             parentFragmentManager.beginTransaction()
                 .remove(this).commit()
         }
-//        title.text = this.arguments?.get("title").toString()
-//
-//        val currentArticle :ArticleModel = this.arguments?.get("article") as ArticleModel
-//        viewModel.processUiEvent(DataEvent.ShowArticle(currentArticle))
+
     }
 
 
@@ -84,9 +81,5 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
         }
     }
 
-//    private fun getArgs(viewState: ViewState) {
-//        title.text = viewState.title
-//
-//    }
 
 }

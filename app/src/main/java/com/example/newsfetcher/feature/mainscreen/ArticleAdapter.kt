@@ -41,11 +41,7 @@ class ArticleAdapter ( private val onAddToBookmarksClicked: (Int) -> Unit, priva
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
             //нажатие на item вызывает номер
-//            viewHolder.itemView.setOnClickListener {
-////                viewHolder.ivFavorite.setOnClickListener {
-//                onItemClicked(position)
-//
-//            }
+
             viewHolder.ivFavorite.setOnClickListener {
                 onAddToBookmarksClicked.invoke(position)
                 notifyDataSetChanged()

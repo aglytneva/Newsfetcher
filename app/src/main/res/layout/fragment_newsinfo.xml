@@ -15,8 +15,9 @@
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/main.collapsing"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
             app:contentScrim="@color/design_default_color_primary_dark"
             app:collapsedTitleTextColor="@color/white"
@@ -27,19 +28,20 @@
                 android:id="@+id/newImage"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:scaleType="centerCrop"
+                android:scaleType="matrix"
                 app:srcCompat="@drawable/ic_launcher_foreground"
                 tools:srcCompat="@color/white" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/newInfoToolbar"
                 scrollFlags="scroll|enterAlwas"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="?actionBarSize"
-                app:expandedTitleMarginEnd="14dp"
-                app:expandedTitleMarginStart="36dp"
+                android:minHeight="14dp"
                 android:scrollbarSize="14dp"
                 app:contentInsetStartWithNavigation="14dp"
+                app:expandedTitleMarginEnd="14dp"
+                app:expandedTitleMarginStart="14dp"
                 app:titleMargin="14dp" />
 
             <ImageView

@@ -81,8 +81,6 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
         bundle.putString("description",currentArticle.description)
         bundle.putString("publishedAt",currentArticle.publishedAt)
         bundle.putString("urlToImage",currentArticle.urlToImage)
-
-//        bundle.putParcelable("article", currentArticle)
         parentFragmentManager.beginTransaction().add(
             R.id.container, ArticleInfoFragment.getNewInstance(bundle)).commit()
     }

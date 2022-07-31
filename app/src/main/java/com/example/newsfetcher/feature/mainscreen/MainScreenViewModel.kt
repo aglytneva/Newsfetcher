@@ -19,26 +19,13 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
         processDataEvent(DataEvent.loadArticles)
     }
 
-    //    val isSearchEnabled:Boolean,
-//    val articlesShown:List<ArticleModel>,
-//
-//
-//    val articles : List <ArticleModel>
+
     override fun initialViewState() = ViewState(
         articleList = emptyList(),
         articlesShown = emptyList(),
         editText = "",
         isSearchEnabled = false,
-//        articleInfo = ArticleModel(
-//            author = "",
-//            description = "",
-//            url = "",
-//            title = "",
-//            urlToImage = "",
-//            publishedAt = "",
-//            content = "",
-//            bookmarkAddedFlag = false
-//            )
+
     )
 
     override fun reduce(event: Event, previousState: ViewState): ViewState? {
