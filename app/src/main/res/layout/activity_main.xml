@@ -6,8 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="0dp"
@@ -24,6 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/menu"/>
+        app:menu="@menu/menu"
+        android:background="?colorSecondary"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

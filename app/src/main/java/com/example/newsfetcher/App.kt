@@ -1,6 +1,7 @@
 package com.example.newsfetcher
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.newsfetcher.feature.bookmarks.di.boomarksModule
 import com.example.newsfetcher.feature.di.mainScreenModule
 import org.koin.android.ext.koin.androidContext
@@ -16,5 +17,9 @@ class App : Application () {
                 androidContext(this@App)
                 modules(netWorkModule, mainScreenModule,databaseModule, boomarksModule)
         }
+
+        // Чтобы приложение использовало темную тему в зависимости от системы
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 }
