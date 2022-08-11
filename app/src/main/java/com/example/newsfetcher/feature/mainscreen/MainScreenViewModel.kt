@@ -1,14 +1,11 @@
 package com.example.newsfetcher.feature.mainscreen
 
-import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.example.newsfatcher.base.BaseViewModel
 import com.example.newsfatcher.base.Event
 import com.example.newsfetcher.feature.bookmarks.domain.BookmarksInteractor
-import com.example.newsfetcher.feature.domain.ArticleModel
 import com.example.newsfetcher.feature.domain.ArticlesInteractor
-import kotlinx.coroutines.internal.artificialFrame
 import kotlinx.coroutines.launch
 
 class MainScreenViewModel (private val interactor : ArticlesInteractor,
@@ -25,6 +22,7 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
         articlesShown = emptyList(),
         editText = "",
         isSearchEnabled = false,
+
 
     )
 
@@ -46,7 +44,7 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
             }
             is DataEvent.onLoadArticlesSoursed -> {
                 return previousState.copy(
-                    articleList = event.articles, articlesShown = event.articles,
+                    articleList = event.articles, articlesShown = event.articles
                 )
             }
 
@@ -54,8 +52,9 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
             //при нажатии на кнопку создается новая статья в базе данных
             is UiEvent.OnArticleClicked -> {
                 viewModelScope.launch {
-
+                    previousState.articleList[event.index].favoriteArticlecChoice = true
                     bookmarksInteractor.create(previousState.articlesShown[event.index])
+
                 }
                 return null
             }

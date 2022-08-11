@@ -12,4 +12,5 @@ data class ArticleModel(
     val urlToImage: String?,
     val publishedAt: String?,
     val content: String?,
+    var favoriteArticlecChoice:Boolean=false
 )

@@ -15,8 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BookmarksFragment:Fragment (R.layout.fragment_bookmarks) {
     private val viewModel: BookmarksScreenViewModel by viewModel()
     private val recyclerView: RecyclerView by lazy {requireActivity().findViewById (R.id.rvBookmarkedArticles)}
-    private val adapter: ArticleAdapter by lazy {
-        ArticleAdapter ({ index ->
+    private val adapter: BookmarksArticleAdapter by lazy {
+        BookmarksArticleAdapter ({ index ->
             viewModel.processUiEvent(UiEvent.OnArticleClicked(index))
         }, {currentArticle -> openArticle(currentArticle)})
     }

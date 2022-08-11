@@ -5,6 +5,9 @@ import com.example.newsfetcher.feature.bookmarks.data.toEntity
 import com.example.newsfetcher.feature.domain.ArticleModel
 
 class BookmarksRepositoryImpl (private val bookmaksLocalSourse: BookmaksLocalSourse) : BookmarksRepository {
+
+
+
     override suspend fun create(model: ArticleModel) {
         bookmaksLocalSourse.create(model.toEntity())
     }

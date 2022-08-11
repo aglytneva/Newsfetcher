@@ -29,14 +29,16 @@ class BookmarksScreenViewModel (private val interactor:BookmarksInteractor) : Ba
             }
            is DataEvent.OnSuccessBookmarksLoaded -> {
                Log.d("Room", "articleBookmark = ${event.bookmarksArticle}")
+
                return previousState.copy(bookmarksArticles = event.bookmarksArticle)
+
            }
 
             //при нажатии на кнопку удаляется статья в базе данных
             is UiEvent.OnArticleClicked -> {
                 viewModelScope.launch {
                     interactor.delete(previousState.bookmarksArticles[event.index])
-
+                    previousState.bookmarksArticles[event.index].favoriteArticlecChoice = true
                 }
                 return null
             }

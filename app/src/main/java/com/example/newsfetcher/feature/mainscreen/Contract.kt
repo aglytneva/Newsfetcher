@@ -8,7 +8,7 @@ import com.example.newsfetcher.feature.domain.ArticleModel
 data class ViewState (
     val isSearchEnabled:Boolean,
     var editText :String,
-    val articlesShown:List<ArticleModel>,
+    val articlesShown:List<ArticleModel> ,
     val articleList : List <ArticleModel>,
 //    val articleInfo : ArticleModel
 )

@@ -1,4 +1,4 @@
-package com.example.newsfetcher.feature.mainscreen
+package com.example.newsfetcher.feature.bookmarks.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
 import com.example.newsfetcher.feature.domain.ArticleModel
 //( val onItemClick:() ->Int ) передаем функцию высшего порядка
-class ArticleAdapter ( private val onAddToBookmarksClicked: (Int) -> Unit, private val onArticleClicked: (ArticleModel) -> Unit) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+class BookmarksArticleAdapter (private val onAddToBookmarksClicked: (Int) -> Unit, private val onArticleClicked: (ArticleModel) -> Unit) : RecyclerView.Adapter<BookmarksArticleAdapter.ViewHolder>() {
 
         // передаем в эту переменную список статей, создаем самостоятельно
         private var articlesData:List <ArticleModel> = emptyList ()
@@ -24,6 +24,7 @@ class ArticleAdapter ( private val onAddToBookmarksClicked: (Int) -> Unit, priva
             val tvTittle: TextView=view.findViewById(R.id.tvTittle)
             val tvDate: TextView=view.findViewById(R.id.tvDate)
             val ivFavorite:ImageView = view.findViewById(R.id.ivFavorite)
+
 
         }
 
@@ -55,9 +56,9 @@ class ArticleAdapter ( private val onAddToBookmarksClicked: (Int) -> Unit, priva
             // contents of the view with that element
             viewHolder.tvTittle.text = articlesData[position].title
             viewHolder.tvDate.text = articlesData[position].publishedAt
+            viewHolder.ivFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
             if (articlesData[position].favoriteArticlecChoice)
-                viewHolder.ivFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-
+                viewHolder.ivFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
 
 
 
