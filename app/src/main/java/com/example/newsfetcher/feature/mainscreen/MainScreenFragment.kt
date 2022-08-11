@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -21,7 +22,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
     private val recyclerView: RecyclerView by lazy {requireActivity().findViewById (R.id.rvArticles) }
     private val ivSearch: ImageView by lazy {requireActivity().findViewById (R.id.ivSearch) }
     private val tvTittle: TextView by lazy {requireActivity().findViewById (R.id.tvTittle) }
-
+    private val progressBar: ProgressBar by lazy { requireActivity().findViewById(R.id.progressBar) }
     private val etSearch: EditText by lazy {requireActivity().findViewById (R.id.etSearch) }
     private val adapter: ArticleAdapter by lazy {
         ArticleAdapter (
@@ -67,6 +68,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
 
     private fun render (viewState: ViewState) {
+        progressBar.isVisible = viewState.isLoading
         tvTittle.isVisible =!viewState.isSearchEnabled
         etSearch.isVisible = viewState.isSearchEnabled
         adapter.setData(viewState.articlesShown)

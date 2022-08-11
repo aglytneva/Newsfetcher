@@ -22,7 +22,7 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
         articlesShown = emptyList(),
         editText = "",
         isSearchEnabled = false,
-
+        isLoading = false
 
     )
 
@@ -39,12 +39,13 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
 
                         }
                     )
+
                 }
-                return null
+                return previousState.copy(isLoading = true)
             }
             is DataEvent.onLoadArticlesSoursed -> {
                 return previousState.copy(
-                    articleList = event.articles, articlesShown = event.articles
+                    articleList = event.articles, articlesShown = event.articles, isLoading = false
                 )
             }
 

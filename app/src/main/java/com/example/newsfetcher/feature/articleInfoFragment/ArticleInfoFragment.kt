@@ -1,7 +1,9 @@
 package com.example.newsfetcher.feature.articleInfoFragment
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -39,7 +41,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        // Передача аргументов Bundle из MainActivity
         val title = arguments?.get("title").toString()
         val author = arguments?.get("author").toString()
         val url = arguments?.get("url").toString()
@@ -48,13 +50,22 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
         val publishedAt = arguments?.get("publishedAt").toString()
         val urlToImage = arguments?.get("urlToImage").toString()
 
+        //получение url картинки
         getImageOfArticleFromUrl(urlToImage)
 
+        // присваивание значений из Bundle фрагмента из которого открыт даный фрагмент
         collTullBar.title = title
         decriptopnInfo.text = description
         urlInfo.text = url
 
+        // открытие страницы интернета с подробностями
+        urlInfo.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            startActivity(i)
+        }
 
+        // возвращение на предыдущий экран
         btnBack.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .remove(this).commit()
@@ -62,7 +73,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
 
     }
 
-
+    // получение картинки из интернета
     private fun getImageOfArticleFromUrl(urlToImage: String) {
         val executor = Executors.newSingleThreadExecutor()
         val handler = Handler(Looper.getMainLooper())

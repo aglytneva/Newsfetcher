@@ -6,6 +6,7 @@ import com.example.newsfatcher.base.Event
 import com.example.newsfetcher.feature.domain.ArticleModel
 
 data class ViewState (
+    val isLoading: Boolean,
     val isSearchEnabled:Boolean,
     var editText :String,
     val articlesShown:List<ArticleModel> ,

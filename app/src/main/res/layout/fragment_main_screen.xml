@@ -67,4 +67,16 @@
         app:layout_constraintTop_toBottomOf="@id/layoutToolBar"
         />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="247dp"
+        android:layout_height="284dp"
+        android:outlineAmbientShadowColor="@color/colorPrimaryDark"
+        android:outlineSpotShadowColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutToolBar"
+        app:layout_constraintVertical_bias="0.45" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
