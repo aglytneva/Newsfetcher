@@ -67,8 +67,8 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
 
         // возвращение на предыдущий экран
         btnBack.setOnClickListener {
-            parentFragmentManager.beginTransaction()
-                .remove(this).commit()
+            parentFragmentManager.beginTransaction().remove(this)
+                   .commit()
         }
 
     }
