@@ -40,6 +40,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
         recyclerView.adapter=adapter
 
         ivSearch.setOnClickListener {
+
             viewModel.processUiEvent(UiEvent.OnSearchButtonClicked)
         }
 

@@ -50,8 +50,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
         val publishedAt = arguments?.get("publishedAt").toString()
         val urlToImage = arguments?.get("urlToImage").toString()
 
-        //получение url картинки
-        getImageOfArticleFromUrl(urlToImage)
+
 
         // присваивание значений из Bundle фрагмента из которого открыт даный фрагмент
         collTullBar.title = title
@@ -63,6 +62,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
             val i = Intent(Intent.ACTION_VIEW)
             i.data = Uri.parse(url)
             startActivity(i)
+
         }
 
         // возвращение на предыдущий экран
@@ -70,6 +70,9 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
             parentFragmentManager.beginTransaction().remove(this)
                    .commit()
         }
+
+        //получение url картинки
+        getImageOfArticleFromUrl(urlToImage)
 
     }
 

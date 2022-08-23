@@ -78,7 +78,7 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
                 previousState.editText = event.text
                 return previousState.copy(articlesShown = previousState.articleList.filter {
                     it.title.contains(event.text)
-                })
+                }, isSearchEnabled = previousState.isSearchEnabled)
             }
 
             else -> return null
