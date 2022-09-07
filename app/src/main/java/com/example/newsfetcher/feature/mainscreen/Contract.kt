@@ -11,6 +11,7 @@ data class ViewState (
     var editText: String,
     val articlesShown: List<ArticleModel>,
     val articleList: List<ArticleModel>,
+    val errorText:String
 //    val articleInfo : ArticleModel
 )
 //называем события как будто ползователь нажал на кнопку, показывает не то,
@@ -30,6 +31,7 @@ sealed class DataEvent : Event {
 
     object loadArticles :DataEvent()
     data class onLoadArticlesSoursed ( val articles: List<ArticleModel>) : DataEvent()
+    data class OnFailedArticleLoaded ( val throwable: Throwable) : DataEvent()
 
 
 

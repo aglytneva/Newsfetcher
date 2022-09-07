@@ -9,7 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
 import com.example.newsfetcher.feature.domain.ArticleModel
 //( val onItemClick:() ->Int ) передаем функцию высшего порядка
-class ArticleAdapter ( private val onAddToBookmarksClicked: (Int) -> Unit, private val onArticleClicked: (ArticleModel) -> Unit) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
+class ArticleAdapter (
+    private val onAddToBookmarksClicked: (Int) -> Unit,
+    private val onArticleClicked: (ArticleModel) -> Unit
+) : RecyclerView.Adapter<ArticleAdapter.ViewHolder>() {
 
         // передаем в эту переменную список статей, создаем самостоятельно
         private var articlesData:List <ArticleModel> = emptyList ()
@@ -21,12 +24,16 @@ class ArticleAdapter ( private val onAddToBookmarksClicked: (Int) -> Unit, priva
          * (custom ViewHolder).
          */
         class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val tvTittle: TextView=view.findViewById(R.id.tvTittle)
-            val tvDate: TextView=view.findViewById(R.id.tvDate)
-            val ivFavorite:ImageView = view.findViewById(R.id.ivFavorite)
+            val tvTittle: TextView
+            val tvDate: TextView
+            val ivFavorite: ImageView
 
+            init {
+                tvTittle = view.findViewById(R.id.tvTittle)
+                tvDate = view.findViewById(R.id.tvDate)
+                ivFavorite = view.findViewById(R.id.ivFavorite)
+            }
         }
-
         // Create new views (invoked by the layout manager)
         override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
             // Create a new view, which defines the UI of the list item

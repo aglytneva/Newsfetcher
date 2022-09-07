@@ -33,11 +33,14 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
+
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.viewState.observe (viewLifecycleOwner, :: render)
         recyclerView.adapter=adapter
+
+
 
         ivSearch.setOnClickListener {
 
@@ -69,10 +72,11 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
 
     private fun render (viewState: ViewState) {
+        adapter.setData(viewState.articlesShown)
         progressBar.isVisible = viewState.isLoading
         tvTittle.isVisible =!viewState.isSearchEnabled
         etSearch.isVisible = viewState.isSearchEnabled
-        adapter.setData(viewState.articlesShown)
+
     }
 
     private fun openArticle(currentArticle: ArticleModel) {
@@ -84,7 +88,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
         bundle.putString("description",currentArticle.description)
         bundle.putString("publishedAt",currentArticle.publishedAt)
         bundle.putString("urlToImage",currentArticle.urlToImage)
-        parentFragmentManager.beginTransaction().add(
+        parentFragmentManager.beginTransaction().replace(
             R.id.container, ArticleInfoFragment.getNewInstance(bundle)).commit()
     }
 

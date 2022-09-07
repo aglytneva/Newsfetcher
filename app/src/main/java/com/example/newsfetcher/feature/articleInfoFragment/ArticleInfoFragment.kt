@@ -23,7 +23,7 @@ import java.util.concurrent.Executors
 
 class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
 
-//    private val viewModel: ArticleScreenViewModel by viewModel()
+    private val viewModel: ArticleInfoViewModel by viewModel()
     private val articleImage: ImageView by lazy { requireActivity().findViewById(R.id.newImage) }
     private val btnBack: ImageView by lazy { requireActivity().findViewById(R.id.btnBackToArticleList) }
     private val collTullBar: CollapsingToolbarLayout by lazy { requireActivity().findViewById(R.id.main_collapsing)}
@@ -41,6 +41,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.viewState.observe(viewLifecycleOwner, ::render)
         // Передача аргументов Bundle из MainActivity
         val title = arguments?.get("title").toString()
         val author = arguments?.get("author").toString()
@@ -50,12 +51,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
         val publishedAt = arguments?.get("publishedAt").toString()
         val urlToImage = arguments?.get("urlToImage").toString()
 
-
-
-        // присваивание значений из Bundle фрагмента из которого открыт даный фрагмент
-        collTullBar.title = title
-        decriptopnInfo.text = description
-        urlInfo.text = url
+        viewModel.processUiEvent(DataEvent.ShowArticle(title,description, url, urlToImage))
 
         // открытие страницы интернета с подробностями
         urlInfo.setOnClickListener {
@@ -67,14 +63,21 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
 
         // возвращение на предыдущий экран
         btnBack.setOnClickListener {
-            parentFragmentManager.beginTransaction().remove(this)
-                   .commit()
+
+            parentFragmentManager.beginTransaction().remove(this).commit()
         }
 
-        //получение url картинки
-        getImageOfArticleFromUrl(urlToImage)
+
+//        getImageOfArticleFromUrl(urlToImage)
 
     }
+    private fun render(viewState: ViewState) {
+        collTullBar.title = viewState.articleTitle
+        decriptopnInfo.text = viewState.articleDescription
+        urlInfo.text = viewState.articleLink
+        viewState.articleUrlToImage?.let { getImageOfArticleFromUrl(it) }
+    }
+
 
     // получение картинки из интернета
     private fun getImageOfArticleFromUrl(urlToImage: String) {

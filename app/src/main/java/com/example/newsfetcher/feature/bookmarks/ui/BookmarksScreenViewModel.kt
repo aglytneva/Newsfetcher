@@ -10,15 +10,17 @@ import kotlinx.coroutines.launch
 class BookmarksScreenViewModel (private val interactor:BookmarksInteractor) : BaseViewModel <ViewState>(){
 
     init {
-        processDataEvent(com.example.newsfetcher.feature.bookmarks.ui.DataEvent.LoadBookmarks)
+        processDataEvent(DataEvent.LoadBookmarks)
     }
-    override fun initialViewState(): ViewState = ViewState(bookmarksArticles = emptyList())
+    override fun initialViewState(): ViewState = ViewState(bookmarksArticles = emptyList(), errorText = "")
     override fun reduce(event: Event, previousState: ViewState): ViewState? {
         when(event) {
             is DataEvent.LoadBookmarks -> {
                 viewModelScope.launch {
                     interactor.read().fold(
-                        onError = {},
+                        onError = {
+                                  processDataEvent(DataEvent.OnFailedBookmarksLoaded(it))
+                        },
                         onSuccess = {
                             processDataEvent(DataEvent
                                 .OnSuccessBookmarksLoaded(it))
@@ -33,6 +35,11 @@ class BookmarksScreenViewModel (private val interactor:BookmarksInteractor) : Ba
                return previousState.copy(bookmarksArticles = event.bookmarksArticle)
 
            }
+
+            is DataEvent.OnFailedBookmarksLoaded -> {
+                Log.d("Room", "articleBookmark не загружены")
+                   return previousState
+            }
 
             //при нажатии на кнопку удаляется статья в базе данных
             is UiEvent.OnArticleClicked -> {
