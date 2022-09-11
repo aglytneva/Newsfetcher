@@ -8,7 +8,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
@@ -34,16 +36,12 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
 
     override fun onViewCreated (view: View, savedInstanceState: Bundle?) {
-
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.viewState.observe (viewLifecycleOwner, :: render)
         recyclerView.adapter=adapter
 
-
-
         ivSearch.setOnClickListener {
-
             viewModel.processUiEvent(UiEvent.OnSearchButtonClicked)
         }
 
@@ -54,41 +52,50 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
         // TextWatcher - это интерфейс, поэтому мы не создаем отдельный класс, мы реализуем его анонимно
         //класс, у которого нет имени, но он автоматически имплементирует
         //va
-        etSearch.addTextChangedListener(object : TextWatcher {
-            // до того как текст именился
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                }
-            // в тот момент как текст именился
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                }
-            // после того как текст именилсяю Нам он нужен
-            override fun afterTextChanged(text: Editable?) {
-                viewModel.processUiEvent(UiEvent.OnSearchEdit(text.toString()))
-            }
-
-        })
+//        etSearch.addTextChangedListener(object : TextWatcher {
+//            // до того как текст именился
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//                }
+//            // в тот момент как текст именился
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//                }
+//            // после того как текст именилсяю Нам он нужен
+//            override fun afterTextChanged(text: Editable?) {
+//                viewModel.processUiEvent(UiEvent.OnSearchEdit(text.toString()))
+//            }
+//        })
+        //      Использование KTX
+        etSearch.doAfterTextChanged { text ->  viewModel.processUiEvent(UiEvent.OnSearchEdit(text.toString())) }
 
     }
-
 
     private fun render (viewState: ViewState) {
         adapter.setData(viewState.articlesShown)
         progressBar.isVisible = viewState.isLoading
         tvTittle.isVisible =!viewState.isSearchEnabled
         etSearch.isVisible = viewState.isSearchEnabled
-
     }
 
     private fun openArticle(currentArticle: ArticleModel) {
-        val bundle = Bundle()
-        bundle.putString("title",currentArticle.title)
-        bundle.putString("author",currentArticle.author)
-        bundle.putString("url",currentArticle.url)
-        bundle.putString("content",currentArticle.content)
-        bundle.putString("description",currentArticle.description)
-        bundle.putString("publishedAt",currentArticle.publishedAt)
-        bundle.putString("urlToImage",currentArticle.urlToImage)
-        parentFragmentManager.beginTransaction().replace(
+        //      Использование KTX
+        val bundle = bundleOf(
+            "title" to currentArticle.title,
+            "author" to currentArticle.author,
+            "url" to currentArticle.url,
+            "content" to currentArticle.content,
+            "description" to currentArticle.description,
+            "publishedAt" to currentArticle.publishedAt,
+            "urlToImage" to currentArticle.urlToImage
+        )
+//        val bundle = Bundle()
+//        bundle.putString("title",currentArticle.title)
+//        bundle.putString("author",currentArticle.author)
+//        bundle.putString("url",currentArticle.url)
+//        bundle.putString("content",currentArticle.content)
+//        bundle.putString("description",currentArticle.description)
+//        bundle.putString("publishedAt",currentArticle.publishedAt)
+//        bundle.putString("urlToImage",currentArticle.urlToImage)
+        parentFragmentManager.beginTransaction().add(
             R.id.container, ArticleInfoFragment.getNewInstance(bundle)).commit()
     }
 

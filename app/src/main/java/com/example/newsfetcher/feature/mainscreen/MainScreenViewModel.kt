@@ -57,13 +57,20 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
 
             //при нажатии на кнопку создается новая статья в базе данных
             is UiEvent.OnArticleClicked -> {
-                previousState.articleList[event.index].favoriteArticlecChoice = true
+
+                val updateList = previousState.articleList.mapIndexed { index, articleModel ->
+                    if (index == event.index) {
+                        articleModel.copy (favoriteArticlecChoice = !articleModel.favoriteArticlecChoice)
+                    } else {
+                        articleModel
+                    }
+                }
                 viewModelScope.launch {
 
                     bookmarksInteractor.create(previousState.articlesShown[event.index])
 
                 }
-                return null
+                return previousState.copy(articleList = updateList)
             }
 
             //при нажатии на кнопку поиск

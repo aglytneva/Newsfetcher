@@ -10,6 +10,8 @@ import com.example.newsfetcher.feature.bookmarks.di.BOOKMARKS_TABLE
 data class BookmarksEntity (
 
     @PrimaryKey
+    @ColumnInfo(name= "url")
+    val url :String,
 
     @ColumnInfo(name= "author")
     val author :String,
@@ -20,8 +22,7 @@ data class BookmarksEntity (
     @ColumnInfo(name= "description")
     val description :String,
 
-    @ColumnInfo(name= "url")
-    val url :String,
+
 
     @ColumnInfo(name= "urlToImage")
     val urlToImage :String,

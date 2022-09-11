@@ -22,10 +22,14 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         bottomNavigationMenu.setOnItemSelectedListener {
+
             when (it.itemId) {
                 R.id.itemMain -> {
+
                     if (bottomNavigationMenu.selectedItemId != it.itemId) {
+
                         selectTab(MainScreenFragment())
+
                     }
                 }
                 R.id.itemBookmarks -> {

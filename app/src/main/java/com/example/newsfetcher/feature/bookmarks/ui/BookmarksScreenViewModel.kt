@@ -46,6 +46,7 @@ class BookmarksScreenViewModel (private val interactor:BookmarksInteractor) : Ba
                 viewModelScope.launch {
                     interactor.delete(previousState.bookmarksArticles[event.index])
                     previousState.bookmarksArticles[event.index].favoriteArticlecChoice = true
+                    processDataEvent(DataEvent.LoadBookmarks)
                 }
                 return null
             }

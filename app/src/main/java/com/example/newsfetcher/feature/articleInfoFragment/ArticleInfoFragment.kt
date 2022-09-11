@@ -58,7 +58,6 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
             val i = Intent(Intent.ACTION_VIEW)
             i.data = Uri.parse(url)
             startActivity(i)
-
         }
 
         // возвращение на предыдущий экран

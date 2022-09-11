@@ -39,7 +39,6 @@ class ArticleAdapter (
             // Create a new view, which defines the UI of the list item
             val view = LayoutInflater.from(viewGroup.context)
                 .inflate(R.layout.item_article, viewGroup, false)
-
             return ViewHolder(view)
         }
 
@@ -48,10 +47,9 @@ class ArticleAdapter (
         override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
             //нажатие на item вызывает номер
-
             viewHolder.ivFavorite.setOnClickListener {
                 onAddToBookmarksClicked.invoke(position)
-                notifyDataSetChanged()
+//                notifyDataSetChanged()
             }
 
             viewHolder.tvTittle.setOnClickListener{
@@ -64,27 +62,14 @@ class ArticleAdapter (
             viewHolder.tvDate.text = articlesData[position].publishedAt
             if (articlesData[position].favoriteArticlecChoice)
                 viewHolder.ivFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-
-
-
-
         }
 
-
         // Return the size of your dataset (invoked by the layout manager)
-        override fun getItemCount() = articlesData.size
+    override fun getItemCount() = articlesData.size
 
-            //создаем метод, который самостоятельно дергает дату
-//           fun setData (articles :List <ArticleModel>) {
-//               articlesData = articles
-//               notifyDataSetChanged()
-//
-//            }
-
+    //создаем метод, который самостоятельно дергает дату
     fun setData (articles :List <ArticleModel>) {
-
             articlesData = articles
-
             notifyDataSetChanged()
 
     }
