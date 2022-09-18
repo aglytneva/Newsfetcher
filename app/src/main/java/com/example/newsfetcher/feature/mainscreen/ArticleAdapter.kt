@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.newsfetcher.R
 import com.example.newsfetcher.feature.domain.ArticleModel
 //( val onItemClick:() ->Int ) передаем функцию высшего порядка
@@ -69,7 +70,10 @@ class ArticleAdapter (
             Glide
                 .with(viewHolder.image)
                 .load(articlesData[position].urlToImage)
-                .placeholder(R.drawable.ic_baseline_article_24)
+                .placeholder(R.drawable.ic_baseline_article_24)//картина пока загружается
+                .centerInside()//растягивание изображения
+                .transition(DrawableTransitionOptions.withCrossFade())//анимирование
+                .error(R.drawable.ic_baseline_error_outline_24)//картинка если ошибка получения картинки
                 .into(viewHolder.image)
         }
 
