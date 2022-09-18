@@ -45,13 +45,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
             viewModel.processUiEvent(UiEvent.OnSearchButtonClicked)
         }
 
-        //хотим, чтобы при каждом вводе символа пользователем у нас создавался новый event и
-        // он отправлялся во viewModel и относительно этого event у нас происходила фильтрация списка
-        // для этого у нас есть у editText метод addTextChangedListener и  есть некaя сущность,
-        // которая называется TextWatcher.
-        // TextWatcher - это интерфейс, поэтому мы не создаем отдельный класс, мы реализуем его анонимно
-        //класс, у которого нет имени, но он автоматически имплементирует
-        //va
+
 //        etSearch.addTextChangedListener(object : TextWatcher {
 //            // до того как текст именился
 //            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -64,8 +58,10 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 //                viewModel.processUiEvent(UiEvent.OnSearchEdit(text.toString()))
 //            }
 //        })
+
         //      Использование KTX
-        etSearch.doAfterTextChanged { text ->  viewModel.processUiEvent(UiEvent.OnSearchEdit(text.toString())) }
+        etSearch.doAfterTextChanged {
+                text ->  viewModel.processUiEvent(UiEvent.OnSearchEdit(text.toString())) }
 
     }
 
@@ -78,6 +74,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 
     private fun openArticle(currentArticle: ArticleModel) {
         //      Использование KTX
+
         val bundle = bundleOf(
             "title" to currentArticle.title,
             "author" to currentArticle.author,

@@ -1,5 +1,6 @@
 package com.example.newsfetcher
 
+import android.app.PendingIntent.getActivity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,8 +19,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         supportFragmentManager.beginTransaction().replace(R.id.container, MainScreenFragment())
             .commit()
+
 
         bottomNavigationMenu.setOnItemSelectedListener {
 
@@ -29,16 +33,18 @@ class MainActivity : AppCompatActivity() {
                     if (bottomNavigationMenu.selectedItemId != it.itemId) {
 
                         selectTab(MainScreenFragment())
-
+                        removeTab(ArticleInfoFragment())
                     }
                 }
                 R.id.itemBookmarks -> {
                     if (bottomNavigationMenu.selectedItemId != it.itemId) {
                         selectTab(BookmarksFragment())
+                        removeTab(ArticleInfoFragment())
                     }
                 }
 
-                else ->{}
+                else ->{
+                    removeTab(ArticleInfoFragment())}
             }
             true
         }
@@ -50,8 +56,10 @@ class MainActivity : AppCompatActivity() {
     private fun selectTab (fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
     }
+
     private fun removeTab (fragment: Fragment) {
         supportFragmentManager.beginTransaction().remove(fragment).commit()
+//        supportFragmentManager.clearBackStack(fragment.toString())
     }
 
 

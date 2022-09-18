@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.newsfetcher.R
 import com.example.newsfetcher.feature.domain.ArticleModel
 //( val onItemClick:() ->Int ) передаем функцию высшего порядка
@@ -24,8 +25,7 @@ class BookmarksArticleAdapter (private val onAddToBookmarksClicked: (Int) -> Uni
             val tvTittle: TextView=view.findViewById(R.id.tvTittle)
             val tvDate: TextView=view.findViewById(R.id.tvDate)
             val ivFavorite:ImageView = view.findViewById(R.id.ivFavorite)
-
-
+            val image:ImageView=view.findViewById(R.id.ivImageNew)
         }
 
         // Create new views (invoked by the layout manager)
@@ -60,7 +60,7 @@ class BookmarksArticleAdapter (private val onAddToBookmarksClicked: (Int) -> Uni
             if (articlesData[position].favoriteArticlecChoice)
                 viewHolder.ivFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
 
-
+            Glide.with(viewHolder.image).load(articlesData[position].urlToImage).into(viewHolder.image)
 
         }
 
