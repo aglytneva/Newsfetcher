@@ -14,14 +14,62 @@ android {
         versionCode 1
         versionName "1.0"
 
+        resConfigs "ru", "en"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        def someProperty1 = true
+        def someProperty2 = false
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        standing {
+            debuggable true
+
+            manifestPlaceholders = [
+                    crashlyticsCollectionEnabled:"false",
+                    applicationIdSuffix         : ".staging",
+                    someProperty1               :someProperty1,
+                    someProperty2               :someProperty2
+            ]
+            applicationIdSuffix  ".staging"
+            versionNameSuffix  ".-staging"
+            buildConfigField "String", "APPLICATION_IO_SUFIX", "\"\".staging\"\""
+            buildConfigField "boolean", "IS_ANALYTICS_ENABLED", "true"
+        }
+        debug {
+            debuggable true
+
+            manifestPlaceholders = [
+                    crashlyticsCollectionEnabled:"false",
+                    applicationIdSuffix         : "",
+                    someProperty1               :someProperty1,
+                    someProperty2               :someProperty2
+            ]
+            applicationIdSuffix  ".debug"
+            versionNameSuffix  ".debug"
+            buildConfigField "String", "APPLICATION_IO_SUFIX", "\"\""
+            buildConfigField "boolean", "IS_ANALYTICS_ENABLED", "true"
+        }
+    }
+    flavorDimensions "api","version"
+    productFlavors {
+        demo {
+            dimension 'version'
+        }
+        full {
+            dimension 'version'
+        }
+        miniApi24 {
+            dimension 'api'
+            minSdkVersion '24'
+            versionNameSuffix "-minApi24"
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
