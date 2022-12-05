@@ -1,7 +1,7 @@
 package com.example.newsfetcher.feature.data.model
 
 import com.google.gson.annotations.SerializedName
-
+// удаленная модель статей, получаемых с сети, приводим наименования к нашим значениям
 data class ArticleRemoteModel (
     @SerializedName( "author")
     val author :String?,

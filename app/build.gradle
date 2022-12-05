@@ -1,8 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
 }
-
+//apply plugin: 'kotlin-kapt'id 'kotlin-kapt'
 android {
     compileSdk 32
 
@@ -13,14 +14,62 @@ android {
         versionCode 1
         versionName "1.0"
 
+        resConfigs "ru", "en"
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        def someProperty1 = true
+        def someProperty2 = false
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        standing {
+            debuggable true
+
+            manifestPlaceholders = [
+                    crashlyticsCollectionEnabled:"false",
+                    applicationIdSuffix         : ".staging",
+                    someProperty1               :someProperty1,
+                    someProperty2               :someProperty2
+            ]
+            applicationIdSuffix  ".staging"
+            versionNameSuffix  ".-staging"
+            buildConfigField "String", "APPLICATION_IO_SUFIX", "\"\".staging\"\""
+            buildConfigField "boolean", "IS_ANALYTICS_ENABLED", "true"
+        }
+        debug {
+            debuggable true
+
+            manifestPlaceholders = [
+                    crashlyticsCollectionEnabled:"false",
+                    applicationIdSuffix         : "",
+                    someProperty1               :someProperty1,
+                    someProperty2               :someProperty2
+            ]
+            applicationIdSuffix  ".debug"
+            versionNameSuffix  ".debug"
+            buildConfigField "String", "APPLICATION_IO_SUFIX", "\"\""
+            buildConfigField "boolean", "IS_ANALYTICS_ENABLED", "true"
+        }
+    }
+    flavorDimensions "api","version"
+    productFlavors {
+        demo {
+            dimension 'version'
+        }
+        full {
+            dimension 'version'
+        }
+        miniApi24 {
+            dimension 'api'
+            minSdkVersion '24'
+            versionNameSuffix "-minApi24"
+        }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -40,6 +89,8 @@ dependencies {
     def gson_convecter_version = "2.9.0"
     def koin_version= "3.2.0"
     def logging_interceptor= "4.10.0"
+    def room_version = "2.5.0-alpha02"
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
@@ -65,4 +116,14 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
     // logging interceptor
     implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
+    // room
+    implementation ("androidx.room:room-runtime:$room_version")
+    kapt ("androidx.room:room-compiler:$room_version")
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation("androidx.room:room-ktx:$room_version")
+
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+
 }
