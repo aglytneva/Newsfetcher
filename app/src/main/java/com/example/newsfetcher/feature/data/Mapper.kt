@@ -4,6 +4,7 @@ import com.example.newsfetcher.feature.data.model.ArticleRemoteModel
 import com.example.newsfetcher.feature.domain.ArticleModel
 
 fun ArticleRemoteModel.toDomain ()= ArticleModel (
+
     author = author ?:"",
     title =title ?:"",
     description =description ?:"" ,
@@ -11,4 +12,5 @@ fun ArticleRemoteModel.toDomain ()= ArticleModel (
     urlToImage =urlToImage ?:"",
     publishedAt =publishedAt ?:"",
     content = content ?:""
+
 )

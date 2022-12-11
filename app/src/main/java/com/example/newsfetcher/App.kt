@@ -1,6 +1,9 @@
 package com.example.newsfetcher
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
+import com.example.newsfetcher.feature.articleInfoFragment.di.articleInfoModule
+import com.example.newsfetcher.feature.bookmarks.di.boomarksModule
 import com.example.newsfetcher.feature.di.mainScreenModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -13,7 +16,12 @@ class App : Application () {
             startKoin {
                 androidLogger()
                 androidContext(this@App)
-                modules(appModule, mainScreenModule)
+                modules(netWorkModule, mainScreenModule,databaseModule,boomarksModule,
+                    articleInfoModule)
         }
+
+        // Чтобы приложение использовало темную тему в зависимости от системы
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
 }
