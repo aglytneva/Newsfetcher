@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         supportFragmentManager.beginTransaction().replace(R.id.container, MainScreenFragment())
             .commit()
 
@@ -30,21 +28,21 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.itemMain -> {
 
-                    if (bottomNavigationMenu.selectedItemId != it.itemId) {
-
+                    if (bottomNavigationMenu.selectedItemId != it.itemId
+                            ) {
                         selectTab(MainScreenFragment())
-                        removeTab(ArticleInfoFragment())
+
                     }
                 }
                 R.id.itemBookmarks -> {
                     if (bottomNavigationMenu.selectedItemId != it.itemId) {
                         selectTab(BookmarksFragment())
-                        removeTab(ArticleInfoFragment())
+
                     }
                 }
 
                 else ->{
-                    removeTab(ArticleInfoFragment())}
+                    selectTab(MainScreenFragment())}
             }
             true
         }
@@ -54,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun selectTab (fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
+        supportFragmentManager.beginTransaction().remove(ArticleInfoFragment()).replace(R.id.container, fragment).commit()
     }
 
     private fun removeTab (fragment: Fragment) {

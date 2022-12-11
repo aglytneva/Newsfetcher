@@ -57,7 +57,7 @@ class BookmarksArticleAdapter (private val onAddToBookmarksClicked: (Int) -> Uni
             viewHolder.tvTittle.text = articlesData[position].title
             viewHolder.tvDate.text = articlesData[position].publishedAt
             viewHolder.ivFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
-            if (articlesData[position].favoriteArticlecChoice)
+            if (articlesData[position].favoriteArticlesChoice)
                 viewHolder.ivFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_border_24)
 
             Glide.with(viewHolder.image).load(articlesData[position].urlToImage).into(viewHolder.image)

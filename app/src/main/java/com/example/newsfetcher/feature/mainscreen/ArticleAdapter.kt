@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -66,14 +65,13 @@ class ArticleAdapter (
             // contents of the view with that element
             viewHolder.tvTittle.text = articlesData[position].title
             viewHolder.tvDate.text = articlesData[position].publishedAt
-            if (articlesData[position].favoriteArticlecChoice)
+            if (articlesData[position].favoriteArticlesChoice)
                 viewHolder.ivFavorite.setBackgroundResource(R.drawable.ic_baseline_favorite_24)
             Glide
                 .with(viewHolder.image)
                 .load(articlesData[position].urlToImage)
                 .placeholder(R.drawable.ic_baseline_article_24)//картина пока загружается
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)//перезагрузка изображений, пока мы скроллим вверх-низ экран, есть еще ALL
-
                 .centerInside()//растягивание изображения
                 .transition(DrawableTransitionOptions.withCrossFade())//анимирование
                 .error(R.drawable.ic_baseline_error_outline_24)//картинка если ошибка получения картинки

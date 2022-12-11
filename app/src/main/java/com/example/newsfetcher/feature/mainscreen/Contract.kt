@@ -1,7 +1,6 @@
 package com.example.newsfetcher.feature.mainscreen
 
 
-import androidx.lifecycle.Lifecycle
 import com.example.newsfatcher.base.Event
 import com.example.newsfetcher.feature.domain.ArticleModel
 

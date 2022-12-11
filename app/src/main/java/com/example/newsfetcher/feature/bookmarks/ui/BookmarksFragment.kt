@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsfetcher.R
 import com.example.newsfetcher.feature.articleInfoFragment.ArticleInfoFragment
 import com.example.newsfetcher.feature.domain.ArticleModel
-import com.example.newsfetcher.feature.mainscreen.ArticleAdapter
 
 
 import org.koin.androidx.viewmodel.ext.android.viewModel

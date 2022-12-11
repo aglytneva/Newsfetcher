@@ -1,6 +1,5 @@
 package com.example.newsfetcher.feature.bookmarks.data.local
 
-import com.example.newsfetcher.feature.bookmarks.data.local.model.BookmarksEntity
 import com.example.newsfetcher.feature.domain.ArticleModel
 
 interface BookmarksRepository {

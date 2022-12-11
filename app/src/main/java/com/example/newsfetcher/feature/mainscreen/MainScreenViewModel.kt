@@ -1,7 +1,5 @@
 package com.example.newsfetcher.feature.mainscreen
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.viewModelScope
 import com.example.newsfatcher.base.BaseViewModel
 import com.example.newsfatcher.base.Event
@@ -57,20 +55,23 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
 
             //при нажатии на кнопку создается новая статья в базе данных
             is UiEvent.OnArticleClicked -> {
+//
+//                val updateList = previousState.articleList.mapIndexed { index, articleModel ->
+//                    if (index == event.index) {
+//                        articleModel.copy (favoriteArticlecChoice = !articleModel.favoriteArticlecChoice)
+//                    } else {
+//                        articleModel
+//                    }
+//                }
+                previousState.articlesShown[event.index].favoriteArticlesChoice = !previousState.articlesShown[event.index].favoriteArticlesChoice
+                processDataEvent(DataEvent.loadArticles)
 
-                val updateList = previousState.articleList.mapIndexed { index, articleModel ->
-                    if (index == event.index) {
-                        articleModel.copy (favoriteArticlecChoice = !articleModel.favoriteArticlecChoice)
-                    } else {
-                        articleModel
-                    }
-                }
                 viewModelScope.launch {
-
+//                    previousState.articleList[event.index].favoriteArticlecChoice = true
                     bookmarksInteractor.create(previousState.articlesShown[event.index])
 
                 }
-                return previousState.copy(articleList = updateList)
+                return null
             }
 
             //при нажатии на кнопку поиск
@@ -88,7 +89,7 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
             //ui событие набора текста, получает текст, копирует новое состояние
             // экрана предварительно отфильтровав список статей, полученных из сети
             is UiEvent.OnSearchEdit -> {
-//                previousState.editText = event.text
+                previousState.editText = event.text
                 return previousState.copy(articlesShown = previousState.articleList.filter {
                     it.title.contains(event.text)
                 }, isSearchEnabled = previousState.isSearchEnabled)
@@ -96,7 +97,6 @@ class MainScreenViewModel (private val interactor : ArticlesInteractor,
 
             else -> return null
         }
-        return null
     }
 
 }

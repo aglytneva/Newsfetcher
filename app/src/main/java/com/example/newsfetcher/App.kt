@@ -2,7 +2,6 @@ package com.example.newsfetcher
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import com.example.newsfetcher.feature.articleInfoFragment.ArticleInfoViewModel
 import com.example.newsfetcher.feature.articleInfoFragment.di.articleInfoModule
 import com.example.newsfetcher.feature.bookmarks.di.boomarksModule
 import com.example.newsfetcher.feature.di.mainScreenModule

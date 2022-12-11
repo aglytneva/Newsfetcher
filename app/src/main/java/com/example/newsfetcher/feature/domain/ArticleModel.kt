@@ -1,8 +1,5 @@
 package com.example.newsfetcher.feature.domain
 
-import android.os.Parcel
-import android.os.Parcelable
-
 data class ArticleModel(
 
     val author: String?,
@@ -12,5 +9,5 @@ data class ArticleModel(
     val urlToImage: String?,
     val publishedAt: String?,
     val content: String?,
-    var favoriteArticlecChoice:Boolean=false
+    var favoriteArticlesChoice:Boolean=false
 )

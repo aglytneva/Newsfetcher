@@ -7,26 +7,22 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.TextUtils.replace
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.newsfetcher.R
-import com.example.newsfetcher.feature.domain.ArticleModel
-import com.example.newsfetcher.feature.mainscreen.MainScreenFragment
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
-import org.koin.androidx.fragment.android.replace
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.Executors
 
-class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
+class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo1) {
 
     private val viewModel: ArticleInfoViewModel by viewModel()
     private val articleImage: ImageView by lazy { requireActivity().findViewById(R.id.newImage) }
     private val btnBack: ImageView by lazy { requireActivity().findViewById(R.id.btnBackToArticleList) }
-    private val collTullBar: CollapsingToolbarLayout by lazy { requireActivity().findViewById(R.id.main_collapsing)}
+    private val collTullBar: TextView by lazy { requireActivity().findViewById(R.id.newInfoToolbar)}
     private val decriptopnInfo: TextView by lazy { requireActivity().findViewById(R.id.tvNewInfo) }
     private val urlInfo: TextView by lazy { requireActivity().findViewById(R.id.tvNewUrl) }
 
@@ -71,7 +67,7 @@ class ArticleInfoFragment:Fragment (R.layout.fragment_newsinfo) {
 
     }
     private fun render(viewState: ViewState) {
-        collTullBar.title = viewState.articleTitle
+        collTullBar.text = viewState.articleTitle
         decriptopnInfo.text = viewState.articleDescription
         urlInfo.text = viewState.articleLink
         viewState.articleUrlToImage?.let { getImageOfArticleFromUrl(it) }

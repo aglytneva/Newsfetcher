@@ -1,8 +1,6 @@
 package com.example.newsfetcher.feature.mainscreen
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -93,7 +91,7 @@ class MainScreenFragment : Fragment(R.layout.fragment_main_screen) {
 //        bundle.putString("publishedAt",currentArticle.publishedAt)
 //        bundle.putString("urlToImage",currentArticle.urlToImage)
         parentFragmentManager.beginTransaction().add(
-            R.id.container, ArticleInfoFragment.getNewInstance(bundle)).commit()
+            R.id.container, ArticleInfoFragment.getNewInstance(bundle),"FRAGMENT_INFO_ARTICLE").addToBackStack(null).commit()
     }
 
 }
